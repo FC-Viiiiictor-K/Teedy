@@ -6,7 +6,7 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-        state('pmd') {
+        stage('pmd') {
             steps {
                 sh 'mvn pmd:pmd'
             }
