@@ -18,12 +18,9 @@ userRemoteConfigs: [[url: 'https://github.com/FC-Viiiiictor-K/Teedy.git']])
         // Uploading Docker images into Docker Hub
         stage('Upload image') {
             steps{
-                withCredentials([usernamePassword(credentials
-Id: 'dockerhub', passwordVariable: '030306fcK', usernameVariable: 'fcviiiiictork')]) {
-                    sh "docker login -u $fcviiiiictork -p $030306fcK"
-                    sh 'docker tag teedy $fcviiiiictork/teedy'
-                    sh 'docker push $fcviiiiictork/teedy'
-                }
+                sh "docker login -u fcviiiiictork -p 030306fcK"
+                sh 'docker tag teedy fcviiiiictork/teedy'
+                sh 'docker push fcviiiiictork/teedy'
             }
         }
 

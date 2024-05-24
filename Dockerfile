@@ -1,4 +1,4 @@
-FROM sismics/ubuntu-jetty:9.4.36
+FROM fcviiiiictork/teedy:latest
 LABEL maintainer="b.gamard@sismics.com"
 
 RUN apt-get update && \
