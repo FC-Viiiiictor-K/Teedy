@@ -9,10 +9,11 @@ pipeline {
 
         stage('K8s') {
             steps {
-                sh 'docker build -t teedy .'
-                sh 'kubectl delete deployment hello-node'
-                sh 'kubectl create deployment hello-node --image=fcviiiiictork/teedy:teedy'
-                sh 'kubectl expose deployment hello-node --type=LoadBalancer --port=8080'
+                //sh 'docker build -t teedy .'
+                //sh 'kubectl delete deployment hello-node'
+                //sh 'kubectl create deployment hello-node --image=fcviiiiictork/teedy:teedy'
+                //sh 'kubectl expose deployment hello-node --type=LoadBalancer --port=8080'
+                sh 'kubectl set image deployments/hello-node docs=fcviiiiictork/teedy:latest'
                 sh 'minikube service hello-node'
             }
         }
