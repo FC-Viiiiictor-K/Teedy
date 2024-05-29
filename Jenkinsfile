@@ -14,7 +14,6 @@ pipeline {
                 //sh 'kubectl create deployment hello-node --image=fcviiiiictork/teedy:teedy'
                 //sh 'kubectl expose deployment hello-node --type=LoadBalancer --port=8080'
                 sh 'kubectl set image deployments/hello-node docs=fcviiiiictork/teedy:latest'
-                sh 'minikube service hello-node'
             }
         }
     }
