@@ -1,36 +1,18 @@
 pipeline {
     agent any
     stages{
-        stage('Package') {
+        stage('Build') {
             steps {
-              checkout scmGit(branches: [[name: '*/master']], extensions: [],
-userRemoteConfigs: [[url: 'https://github.com/FC-Viiiiictor-K/Teedy.git']])
               sh 'mvn -B -DskipTests clean package'
             }
         }
-        // Building Docker images
-        stage('Building image') {
-            steps{
+
+        stage('K8s') {
+            steps {
                 sh 'docker build -t teedy .'
-            }
-        }
-
-        // Uploading Docker images into Docker Hub
-        stage('Upload image') {
-            steps{
-                sh "docker login -u fcviiiiictork -p 030306fcK"
-                sh 'docker tag teedy fcviiiiictork/teedy'
-                sh 'docker push fcviiiiictork/teedy'
-            }
-        }
-
-        //Running Docker container
-        // Run three different containers on port 8082, 8083, 8084
-        stage('Run containers'){
-            steps{
-                sh 'docker run -d -p 8082:8080 --name teedy01 teedy'
-                sh 'docker run -d -p 8083:8080 --name teedy02 teedy'
-                sh 'docker run -d -p 8084:8080 --name teedy03 teedy'
+                sh 'kubectl create deployment hello-node --image=fcviiiiictork/teedy:teedy'
+                sh 'kubectl expose deployment hello-node --type=LoadBalancer --port=8080'
+                sh 'minikube service hello-node'
             }
         }
     }
